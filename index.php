@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-
 $app = new Application();
 
 $app->register(new TwigServiceProvider(), [
@@ -51,19 +50,19 @@ $app->match('/', function (Request $req) use ($app) {
 
     $thumb = Thumb::create($imgPath, $app['dir.thumbs']);
 
-    $app['db']->add([$id, $name, $mime, $thumb, $size, $date, $comment]);
+    $app['db']->execute('add',[$id, $name, $mime, $thumb, $size, $date, $comment]);
 
     return $app->redirect("./$id");
 }, 'GET|POST');
 
 $app->get('/search', function (Request $req) use ($app) {
     $search = $req->get('search');
-    $results = $app['db']->search($search);
+    $results = $app['db']->execute('search', ["%$search%"])->fetchAll();
     return $app['twig']->render('results.twig', ['results' => $results]);
 });
 
 $app->get('/download/{id}', function ($id) use ($app) {
-    $file = $app['db']->get($id);
+    $file = $app['db']->execute('get', [$id])->fetch();
 
     $name = $file['name'];
     $path = "{$app['dir.uploads']}$id$name";
@@ -73,7 +72,7 @@ $app->get('/download/{id}', function ($id) use ($app) {
 });
 
 $app->get('/{id}', function ($id) use ($app) {
-    $file = $app['db']->get($id);
+    $file = $app['db']->execute('get', [$id])->fetch();
 
     if ($file == false) {
         $app->abort(404);

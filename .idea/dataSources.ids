@@ -14,7 +14,7 @@
       <column name="size" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="comment" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
-      <column name="thumb" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="thumb" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
     </table>
   </data-source>
 </component>
