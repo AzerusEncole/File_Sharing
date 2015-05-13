@@ -1,0 +1,24 @@
+{% include 'header.html' %}
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Mime</th>
+                <th>Size</th>
+                <th>Date</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="./{{ result.id }}">{{ result.name }}</a></td>
+                    <td>{{ result.mime }}</td>
+                    <td>{{ result.size }}</td>
+                    <td>{{ result.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% include 'footer.html' %}

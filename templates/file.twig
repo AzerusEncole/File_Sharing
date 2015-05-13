@@ -1,0 +1,36 @@
+{% include 'header.html' %}
+<div class="container">
+    {% if file.thumb is defined %}
+        <div class="row">
+            <img src="./thumbs/{{ file.id }}{{ file.name }}" id="thumb" alt=""/>
+        </div>
+    {% endif %}
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <td>{{ file.name }}</td>
+            </tr>
+            <tr>
+                <th>Mime</th>
+                <td>{{ file.mime }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ file.size }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ file.date }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ file.comment }}</td>
+            </tr>
+        </table>
+        <form action="./download/{{ file.id }}" method="get">
+            <button type="submit" class="btn btn-success">Скачать</button>
+        </form>
+    </div>
+</div>
+{% include 'footer.html' %}
